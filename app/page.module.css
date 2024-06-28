@@ -1,0 +1,79 @@
+.parent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.parent h1 {
+  margin-bottom: 30px;
+  color: var(--main-purble);
+  font-weight: 900;
+}
+
+.login_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background-color: var(--light-gray);
+  border-radius: 25px;
+  max-width: 400px;
+  max-height: 400px;
+  width: 100%;
+  height: 100%;
+}
+
+.login_box h2 {
+  color: var(--main-purble);
+  font-weight: 900;
+}
+
+.login_box .inputs {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login_button {
+  height: 40px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  background-color: var(--main-purble);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.login_button button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 13pt;
+  font-weight: 900;
+  width: 100%;
+  background-color: transparent;
+}
+
+.login_button .login_icon {
+  right: 10px;
+  position: absolute;
+  z-index: 10;
+}
+
+.login_box p {
+  margin-top: 10px;
+}
+
+.login_box p span {
+  text-decoration: underline;
+  color: var(--main-purble);
+  cursor: pointer;
+  font-weight: 700;
+}

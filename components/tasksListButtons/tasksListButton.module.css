@@ -1,0 +1,45 @@
+.parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #454ad5;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.parent button {
+    cursor: pointer;
+    margin-left: 10px;
+    color: white;
+    font-size: 18pt;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.parent div {
+    display: flex;
+    align-items: center;
+}
+
+.parent p {
+    color: #c9caea;
+    font-weight: 500;
+    font-size: 13pt;
+}
+
+
+@media (max-width: 996px) and (min-width: 700px) {
+    .parent button {
+        font-size: 10pt;
+    }
+}
+
+@media (max-width: 700px) {
+    .parent button {
+        display: none;
+    }
+}
+
