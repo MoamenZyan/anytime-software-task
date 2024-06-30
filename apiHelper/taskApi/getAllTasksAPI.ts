@@ -1,6 +1,6 @@
 // Getting all tasks api
 export default async function GetAllTasksAPI(token: string) {
-    return await fetch("/api/tasks", { 
+    return await fetch("http://localhost:8080/tasks", { 
         method: "GET",
         headers: {
             'authorization': token,

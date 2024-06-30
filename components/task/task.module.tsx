@@ -1,5 +1,5 @@
 import styles from "./task.module.css";
-import { TaskFromDB } from "@/backend/interfaces/taskInterface";
+import { ITaskFromDB } from "@/server/src/tasks/interface/taskInterface";
 import { setUpdate, setUpdatedTasks } from "@/redux/tasksSlice";
 import DeleteTaskAPI from "@/apiHelper/taskApi/deleteTaskAPI";
 import UpdateTask from "@/apiHelper/taskApi/updateTaskAPI";
@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 type propsTypes = {
-    task: TaskFromDB
+    task: ITaskFromDB
     setTrigger: Dispatch<SetStateAction<boolean>>
     trigger: boolean
 }
@@ -18,13 +18,14 @@ export default function Task({ task, setTrigger, trigger }: propsTypes) {
 
 
     const handleTaskCompletion = async () => {
-        const newTask: TaskFromDB = {
+        const newTask: ITaskFromDB = {
             _id: task._id,
             title: task.title,
             description: task.description,
             deadline: task.deadline,
             status: "finished",
-            category: task.category
+            category: task.category,
+            userId: task.userId
          }
         const token = localStorage.getItem('token');
         if (!token) return null;

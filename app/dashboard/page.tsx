@@ -4,7 +4,7 @@ import { useEffect, useState, useReducer } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styles from "./page.module.css";
 import Image from "next/image";
-import{ TaskFromDB }from "@/backend/interfaces/taskInterface";
+import { ITaskFromDB } from "@/server/src/tasks/interface/taskInterface";
 import GetAllTasksAPI from "@/apiHelper/taskApi/getAllTasksAPI";
 import TasksListButton from "@/components/tasksListButtons/tasksListButton.module";
 import TasksWrapper from "@/components/tasksWrapper/tasksWrapper.module";
@@ -14,6 +14,7 @@ import { Dispatch, SetStateAction } from "react";
 import Notification from "@/components/notification/notification.module";
 import { RootState } from "@/redux/store";
 import NavbarList from "@/components/navbarList/navbarList.module";
+import Header from "@/components/header/header.module";
 import { useRouter } from "next/navigation";
 import { setLastTasks,
         setCurrentTasks,
@@ -50,22 +51,22 @@ export default function DashboardPage() {
     const [triggerNotification, setTriggerNotification] = useState<boolean>(false);
     const [notificationType, setNotificationType] = useState<boolean>(true);
     const [fullInfo, setFullInfo] = useState<boolean>(false);
-    const [searchedTasks, setSearchedTasks] = useState<TaskFromDB[]>([]);
+    const [searchedTasks, setSearchedTasks] = useState<ITaskFromDB[]>([]);
     const [search, setSearch] = useState<string>("");
     const [trigger, setTrigger] = useState<boolean>(false);
     const [navbar, setNavbar] = useState<boolean>(false);
 
 
     // function to calculate tasks count for every category
-    const categorization = (tasks: TaskFromDB[]) => {
-        let finished: TaskFromDB[] = [];
-        let unfinished: TaskFromDB[] = [];
-        let deadline: TaskFromDB[] = [];
+    const categorization = (tasks: ITaskFromDB[]) => {
+        let finished: ITaskFromDB[] = [];
+        let unfinished: ITaskFromDB[] = [];
+        let deadline: ITaskFromDB[] = [];
 
-        let sport: TaskFromDB[] = [];
-        let shopping: TaskFromDB[] = [];
-        let work: TaskFromDB[] = [];
-        let personal: TaskFromDB[] = [];
+        let sport: ITaskFromDB[] = [];
+        let shopping: ITaskFromDB[] = [];
+        let work: ITaskFromDB[] = [];
+        let personal: ITaskFromDB[] = [];
 
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].status === "pending") {
@@ -104,7 +105,7 @@ export default function DashboardPage() {
     const handleSearchMechanism = (search: string) => {
         if (search.length > 0) {
             const current = tasks.currentTasks;
-            let arr: TaskFromDB[] = current.filter((task) => task.title.toLowerCase().includes(search.toLowerCase()));
+            let arr: ITaskFromDB[] = current.filter((task) => task.title.toLowerCase().includes(search.toLowerCase()));
             setSearchedTasks(arr);
         } else {
             dispatch(setCurrentTasks(tasks.lastTasks));
@@ -122,6 +123,7 @@ export default function DashboardPage() {
             const token = localStorage.getItem('token');
             if (token != null) {
                 const result = await GetAllTasksAPI(token);
+                console.log(result);
                 if (result.tasks != null) {
                     dispatch(setAllTasks(result.tasks));
                     dispatch(setCurrentTasks(result.tasks));
@@ -145,22 +147,7 @@ export default function DashboardPage() {
     return (
     <>
         <div className={styles.parent}>
-            <div className={styles.header}>
-                <div
-                    style={{display: "flex",
-                            justifyContent:"space-between",
-                            alignItems: "center",
-                            width: "90%",
-                            margin: "0 auto"
-                        }}>
-                    <div className={styles.welcome}>
-                        <h1>Welcome {username}</h1>
-                    </div>
-                    <div onClick={() => {setNavbar(!navbar)}} className={styles.navbar}>
-                        <Image src={"3-lines.svg"} width={40} height={40} alt=""/>
-                    </div>
-                </div>
-            </div>
+            <Header setNavbar={setNavbar} navbar={navbar} username={username}/>
             <div className={styles.container}>
                 <div className={styles.center}>
                     <div className={styles.tasks_div}>

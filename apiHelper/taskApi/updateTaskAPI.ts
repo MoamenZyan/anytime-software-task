@@ -1,21 +1,15 @@
-import { Task } from "@/backend/interfaces/taskInterface";
+import { ITask } from "@/server/src/tasks/interface/taskInterface";
 import { ObjectId } from "mongoose";
 
 // Update task
-export default async function UpdateTask(id: ObjectId, taskInfo: Task, token: string) {
-    return await fetch(`/api/tasks/${id}`, { 
+export default async function UpdateTask(id: ObjectId, taskInfo: ITask, token: string) {
+    return await fetch(`http://localhost:8080/tasks/${id}`, { 
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'authorization': token,
         },
-        body: JSON.stringify({
-            title: taskInfo.title,
-            description: taskInfo.description,
-            deadline: taskInfo.deadline,
-            status: taskInfo.status,
-            category: taskInfo.category,
-        })
+        body: JSON.stringify({...taskInfo})
     })
     .then((res) => res.json())
     .then((data) => {return data});

@@ -50,12 +50,24 @@ export default function LoginPage() {
             setChecking(false);
         } else {
             const result = await UserLoginAPI({email, password});
+            console.log(result);
             setChecking(false);
             if (result.status == true) {
                 // Saving token
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('username', result.user.username);
                 localStorage.setItem('linkedin', result.user.linkedin);
+                if (result.linkedin != null) {
+                    localStorage.setItem('linkedinName', result.linkedin.username);
+                    localStorage.setItem('linkedinPhoto', result.linkedin.photo);
+                    localStorage.setItem('linkedinLocation', result.linkedin.location);
+                    localStorage.setItem('linkedinHeadline', result.linkedin.headline);
+                } else {
+                    localStorage.setItem('linkedinName', null);
+                    localStorage.setItem('linkedinPhoto', null);
+                    localStorage.setItem('linkedinLocation', null);
+                    localStorage.setItem('linkedinHeadline', null);
+                }
                 setResultMsg(`welcome ${result.user.username}`);
                 setNotificationType(true);
                 PopupNotificaton(setTriggerNotification, true, router);

@@ -5,7 +5,7 @@ import Notification from "@/components/notification/notification.module";
 import styles from "./page.module.css";
 import Input from "@/components/Input/input.module";
 import CreateUserAPI from "@/apiHelper/userApi/createUserAPI";
-import { User } from "@/backend/interfaces/userInterface";
+import { IUser } from "@/server/src/users/interface/userInterface";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/spinner/spinner.module";
 import { useEffect, useState } from "react";
@@ -52,7 +52,7 @@ export default function SignupPage() {
             return;
         }
         if (username && password && linkedin && email) {
-            const newUser: User = {username, password, linkedin, email};
+            const newUser: IUser = {username, password, linkedin, email};
             setChecking(true);
             const result = await CreateUserAPI(newUser);
             setChecking(false);

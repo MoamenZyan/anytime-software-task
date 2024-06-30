@@ -1,20 +1,14 @@
-import {Task} from "@/backend/interfaces/taskInterface";
+import { ITask } from "@/server/src/tasks/interface/taskInterface";
 
 // Creating task api
-export default async function CreateTaskAPI(taskInfo: Task, token: string) {
-    return await fetch("/api/tasks", { 
+export default async function CreateTaskAPI(taskInfo: ITask, token: string) {
+    return await fetch("http://localhost:8080/tasks", { 
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'authorization': token,
         },
-        body: JSON.stringify({
-            title: taskInfo.title,
-            description: taskInfo.description,
-            deadline: taskInfo.deadline,
-            status: taskInfo.status,
-            category: taskInfo.category
-        }),
+        body: JSON.stringify({...taskInfo}),
     })
     .then((res) => res.json())
     .then((data) => {return data});

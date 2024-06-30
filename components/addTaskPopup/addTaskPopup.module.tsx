@@ -3,7 +3,7 @@ import styles from "./addTaskPopup.module.css";
 import Input from "../Input/input.module";
 import EmojiPicker from "emoji-picker-react";
 import Image from "next/image";
-import { Task } from "@/backend/interfaces/taskInterface";
+import { ITask } from "@/server/src/tasks/interface/taskInterface";
 import CreateTaskAPI from "@/apiHelper/taskApi/createTaskAPI";
 import { Dispatch, SetStateAction } from "react";
 import { useState, useEffect, useRef } from "react";
@@ -33,7 +33,7 @@ export default function AddTaskPopup(props: propsType) {
     const handleTaskCreation = async () => {
         const token = localStorage.getItem('token');
         if (title && description && date && category && token) {
-            const newTask: Task = {title, description, deadline: new Date(date), status: "pending", category: category};
+            const newTask: ITask = {title, description, deadline: new Date(date), status: "pending", category: category};
             setUploading(true);
             const result = await CreateTaskAPI(newTask, token);
             if (result != null) {
