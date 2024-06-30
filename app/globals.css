@@ -1,0 +1,13 @@
+/* normalization */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* global colors */
+:root {
+  --main-purble: #585CE5;
+  --dust-gray: #B0B2C3;
+  --light-gray: #f4f4f7;
+}
